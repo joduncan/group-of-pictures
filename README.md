@@ -50,12 +50,13 @@ Unit tests should be added for the controller and engine modules.
 
 ## Future Enhancements
 ### Dynamically cropping or filtering videos with a query string
-`ffmpeg` supports a number of video filters. If filters such as cropping or monotone color conversion are already supported by `ffmpeg`, we should be able to add support for any specific video transformation with two changes within the codebase:
+`ffmpeg` supports a number of [video filters](https://ffmpeg.org/ffmpeg-filters.html). If filters such as cropping or monotone color conversion are already supported by `ffmpeg`, we should be able to add support for those or any other specific video transformation with two changes within the codebase:
 * Controller module
   * Parse the filter arguments from the query parameters
   * Send the filter information to the engine module
 * Engine module
   * Convert incoming filter information into arguments/formatting that `ffmpeg` understands
+    * Please see the above [video filters](https://ffmpeg.org/ffmpeg-filters.html) page for specific info about the available video filters and the required arguments/formatting.
   * Add the `ffmpeg`-compatible filter arguments when calling `ffmpeg`
 
 ## Additional Notes
