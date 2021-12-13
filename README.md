@@ -9,6 +9,8 @@ I work primarily in Spring Boot when creating API's. The concept of a `blueprint
 ### Design Decisions
 The code has been structured so that response codes and content formatting are done within the controller module, while the engine module contains the interface to the external `ffprobe`/`ffmpeg` programs.
 
+This implementation stores the generated GOP video segments in temporary files on the web server's filesystem while each API request is being processed. The file is removed as soon as the request is completed, but this is not a 100% satisfactory solution if no intermediate/temporary file should ever be created on the web server. This was done to speed up development of a working solution, as I am less familiar with how to allocate and connect a buffer in python with an external program such as `ffmpeg`. It also creates a lot of file I/O on the web server, which can reduce the overall performance of the API.
+
 This is my first time working with `flask` in quite some time. I have tried to follow generic MVC and API best practices, as well as flask-specific best practices, as much as possible within a project of such a small size, and without polluting the code with too many unnecessary abstractions.
 ### Flexibility
 By structuring the project into a controller module and an engine module, I have hopefully made it easier to use a different video processing engine, if needed. Additionally, adding endpoints or changing the display layout of existing endpoints should be easier to accomplish with this separation, without needing to modify the underlying video processing code.
